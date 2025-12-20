@@ -1,0 +1,74 @@
+<div class="print-format-gutter">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h3>{{ frappe.db.get_value("Company", doc.company or frappe.defaults.get_user_default("Company"), "company_name") }}</h3>
+            <p>{{ frappe.db.get_value("Company", doc.company or frappe.defaults.get_user_default("Company"), "tax_id") or "" }}</p>
+            <h4>GUEST FOLIO</h4>
+        </div>
+    </div>
+    
+    <hr>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-xs-6">
+            <strong>Guest Name:</strong> {{ frappe.db.get_value("Guest", doc.guest, "full_name") }}<br>
+            <strong>Address:</strong> {{ frappe.db.get_value("Guest", doc.guest, "address") or "-" }}<br>
+            <strong>Company:</strong> {{ doc.company or "-" }}
+        </div>
+        <div class="col-xs-6 text-right">
+            <strong>Folio No:</strong> {{ doc.name }}<br>
+            <strong>Room No:</strong> {{ doc.room }}<br>
+            <strong>Date:</strong> {{ frappe.utils.now_date() }}
+        </div>
+    </div>
+
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th style="width: 15%">Date</th>
+                <th style="width: 50%">Description</th>
+                <th style="width: 10%">Qty</th>
+                <th style="width: 25%; text-align: right;">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in doc.transactions %}
+            {% if not row.is_void %}
+            <tr>
+                <td>{{ frappe.utils.formatdate(row.posting_date) }}</td>
+                <td>{{ row.description }}</td>
+                <td>{{ row.qty }}</td>
+                <td style="text-align: right;">{{ row.get_formatted("amount", doc) }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3" class="text-right">Total Charges</th>
+                <th class="text-right">{{ doc.get_formatted("total_charges") }}</th>
+            </tr>
+            <tr>
+                <th colspan="3" class="text-right">Total Payments</th>
+                <th class="text-right">{{ doc.get_formatted("total_payments") }}</th>
+            </tr>
+            <tr>
+                <th colspan="3" class="text-right">Balance Due</th>
+                <th class="text-right" style="font-size: 1.2em;">{{ doc.get_formatted("outstanding_balance") }}</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-xs-6">
+            <br><br>
+            __________________________<br>
+            Guest Signature
+        </div>
+        <div class="col-xs-6 text-right">
+            <br><br>
+            __________________________<br>
+            Cashier
+        </div>
+    </div>
+</div>

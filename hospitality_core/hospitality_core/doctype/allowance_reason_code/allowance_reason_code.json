@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:reason_code",
+ "creation": "2025-01-28 11:45:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "reason_code",
+  "description",
+  "requires_manager_approval"
+ ],
+ "fields": [
+  {
+   "fieldname": "reason_code",
+   "fieldtype": "Data",
+   "label": "Reason Code",
+   "reqd": 1,
+   "unique": 1,
+   "description": "e.g., 'SRVC-REC' or 'POST-ERR'"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "requires_manager_approval",
+   "fieldtype": "Check",
+   "label": "Requires Manager Approval",
+   "description": "If checked, only users with Manager role can authorize this void."
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-28 11:45:00.000000",
+ "modified_by": "Administrator",
+ "module": "Hospitality Core",
+ "name": "Allowance Reason Code",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "write": 1,
+   "role": "System Manager"
+  },
+  {
+   "read": 1,
+   "role": "Hospitality User"
+  }
+ ],
+ "sort_field": "reason_code",
+ "sort_order": "ASC",
+ "track_changes": 1
+}

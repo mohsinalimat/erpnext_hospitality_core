@@ -1,0 +1,342 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"KetbGV2NUv\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Front Desk Operations</span>\",\"col\":12}},{\"id\":\"AFikpVG8G_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Front Desk Console\",\"col\":4}},{\"id\":\"LmjeZv2AcL\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tape Chart\",\"col\":4}},{\"id\":\"is7sVl6bVG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Availability Query\",\"col\":4}},{\"id\":\"KRRJXdLa5m\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Guest 360 View\",\"col\":4}},{\"id\":\"Vqn38JTnz-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Maintenance Requests\",\"col\":4}},{\"id\":\"41rbMghVLH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Housekeeping Board\",\"col\":4}},{\"id\":\"qypRwgKZsT\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Management &amp; Inventory</span>\",\"col\":12}},{\"id\":\"3fpFN3V6Ax\",\"type\":\"card\",\"data\":{\"card_name\":\"Operations\",\"col\":4}},{\"id\":\"QcU-MEY5VS\",\"type\":\"card\",\"data\":{\"card_name\":\"Inventory & Rates\",\"col\":4}},{\"id\":\"n54kJReGGr\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounting & Billing\",\"col\":4}},{\"id\":\"DiTXVcW0Fx\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Operational Reports</span>\",\"col\":12}},{\"id\":\"QQwoEW_WYs\",\"type\":\"card\",\"data\":{\"card_name\":\"Operational Reports\",\"col\":4}},{\"id\":\"ye4-MwIyfp\",\"type\":\"card\",\"data\":{\"card_name\":\"Maintenance & Logs\",\"col\":4}},{\"id\":\"vHLVgSFGJ7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Financial Reports &amp; Analytics</span>\",\"col\":12}},{\"id\":\"eiDfp-ImIL\",\"type\":\"card\",\"data\":{\"card_name\":\"Financial Reports\",\"col\":4}},{\"id\":\"1XswkkRf_g\",\"type\":\"card\",\"data\":{\"card_name\":\"Analytics\",\"col\":4}}]",
+ "creation": "2025-01-28 13:00:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "hotel",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Hospitality",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Operations",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hotel Reservation",
+   "link_count": 0,
+   "link_to": "Hotel Reservation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Guest",
+   "link_count": 0,
+   "link_to": "Guest",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hotel Group Booking",
+   "link_count": 0,
+   "link_to": "Hotel Group Booking",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Inventory & Rates",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hotel Room",
+   "link_count": 0,
+   "link_to": "Hotel Room",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hotel Room Type",
+   "link_count": 0,
+   "link_to": "Hotel Room Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Room Rate Plan",
+   "link_count": 0,
+   "link_to": "Room Rate Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Accounting & Billing",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Guest Folio",
+   "link_count": 0,
+   "link_to": "Guest Folio",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Allowance Reason Code",
+   "link_count": 0,
+   "link_to": "Allowance Reason Code",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Operational Reports",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "House List",
+   "link_count": 0,
+   "link_to": "House List",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Hotel Reservation",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Arrivals",
+   "link_count": 0,
+   "link_to": "Daily Arrivals",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Hotel Reservation",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Departures",
+   "link_count": 0,
+   "link_to": "Daily Departures",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Hotel Reservation",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Room Availability Report",
+   "link_count": 0,
+   "link_to": "Room Availability Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Hotel Room",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Maintenance & Logs",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Maintenance Log Report",
+   "link_count": 0,
+   "link_to": "Maintenance Log Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Hotel Maintenance Request",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Analytics",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hotel Performance Analytics",
+   "link_count": 0,
+   "link_to": "Hotel Performance Analytics",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Hotel Reservation",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Financial Reports",
+   "link_count": 7,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily Sales Consumption",
+   "link_count": 0,
+   "link_to": "Daily Sales Consumption",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily Payment Collection",
+   "link_count": 0,
+   "link_to": "Daily Payment Collection",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Guest Ledger",
+   "link_count": 0,
+   "link_to": "Guest Ledger",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "City Ledger",
+   "link_count": 0,
+   "link_to": "City Ledger",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Folio Balance Summary",
+   "link_count": 0,
+   "link_to": "Folio Balance Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Void and Allowance Report",
+   "link_count": 0,
+   "link_to": "Void and Allowance Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Discount and Complimentary Report",
+   "link_count": 0,
+   "link_to": "Discount and Complimentary Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-12-20 02:04:06.031477",
+ "modified_by": "braimahgifted@gmail.com",
+ "module": "Hospitality Core",
+ "name": "Hospitality",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Hospitality User"
+  },
+  {
+   "role": "Hospitality Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "label": "Front Desk Console",
+   "link_to": "front-desk-console",
+   "type": "Page"
+  },
+  {
+   "label": "Tape Chart",
+   "link_to": "tape-chart",
+   "type": "Page"
+  },
+  {
+   "label": "Availability Query",
+   "link_to": "availability-tool",
+   "type": "Page"
+  },
+  {
+   "label": "Guest 360 View",
+   "link_to": "guest-360",
+   "type": "Page"
+  },
+  {
+   "label": "Housekeeping Board",
+   "link_to": "housekeeping-view",
+   "type": "Page"
+  },
+  {
+   "label": "Maintenance Requests",
+   "link_to": "Hotel Maintenance Request",
+   "type": "DocType"
+  }
+ ],
+ "title": "Hospitality"
+}

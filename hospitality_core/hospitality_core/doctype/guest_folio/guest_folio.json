@@ -1,0 +1,191 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "naming_series:",
+    "creation": "2025-01-28 11:05:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "naming_series",
+        "is_company_master",
+        "guest",
+        "company",
+        "reservation",
+        "room",
+        "column_break_1",
+        "status",
+        "open_date",
+        "close_date",
+        "section_break_1",
+        "transactions",
+        "section_break_totals",
+        "total_charges",
+        "total_payments",
+        "outstanding_balance",
+        "amended_from"
+    ],
+    "fields": [
+        {
+            "default": "FOLIO-.#####",
+            "fieldname": "naming_series",
+            "fieldtype": "Data",
+            "label": "Naming Series",
+            "no_copy": 1,
+            "read_only": 1,
+            "reqd": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "is_company_master",
+            "fieldtype": "Check",
+            "label": "Is Company Master Folio",
+            "read_only": 1,
+            "description": "If checked, this folio stays open indefinitely for corporate billing."
+        },
+        {
+            "fieldname": "guest",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Guest (or Rep)",
+            "options": "Guest",
+            "read_only": 1,
+            "reqd": 0
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Company",
+            "options": "Customer",
+            "read_only": 1
+        },
+        {
+            "fieldname": "reservation",
+            "fieldtype": "Link",
+            "label": "Reservation",
+            "options": "Hotel Reservation",
+            "read_only": 1,
+            "reqd": 0,
+            "depends_on": "eval:doc.is_company_master==0"
+        },
+        {
+            "fieldname": "room",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Room",
+            "options": "Hotel Room",
+            "read_only": 1,
+            "depends_on": "eval:doc.is_company_master==0"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "Provisional",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Status",
+            "options": "Provisional\nOpen\nClosed\nCancelled",
+            "read_only": 1,
+            "reqd": 1
+        },
+        {
+            "default": "Today",
+            "fieldname": "open_date",
+            "fieldtype": "Date",
+            "label": "Open Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "close_date",
+            "fieldtype": "Date",
+            "label": "Close Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_1",
+            "fieldtype": "Section Break",
+            "label": "Transactions"
+        },
+        {
+            "fieldname": "transactions",
+            "fieldtype": "Table",
+            "label": "Transactions",
+            "options": "Folio Transaction",
+            "read_only": 1,
+            "description": "Charges posted to the room will appear here."
+        },
+        {
+            "fieldname": "section_break_totals",
+            "fieldtype": "Section Break",
+            "label": "Summary"
+        },
+        {
+            "default": "0.0",
+            "fieldname": "total_charges",
+            "fieldtype": "Currency",
+            "label": "Total Charges",
+            "read_only": 1
+        },
+        {
+            "default": "0.0",
+            "fieldname": "total_payments",
+            "fieldtype": "Currency",
+            "label": "Total Payments",
+            "read_only": 1
+        },
+        {
+            "default": "0.0",
+            "fieldname": "outstanding_balance",
+            "fieldtype": "Currency",
+            "label": "Outstanding Balance",
+            "read_only": 1
+        },
+        {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "label": "Amended From",
+            "no_copy": 1,
+            "options": "Guest Folio",
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 0,
+    "links": [],
+    "modified": "2025-01-28 11:05:00.000000",
+    "modified_by": "Administrator",
+    "module": "Hospitality Core",
+    "name": "Guest Folio",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Hospitality User",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1
+}
