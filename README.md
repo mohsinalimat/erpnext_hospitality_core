@@ -275,6 +275,31 @@ This application is built with customization in mind.
 *   **Extending Logic:** Use custom scripts or a separate custom app to add new hooks and override default behaviors.
 *   **Pull Requests:** Contributions are welcome! Please fork the repository, make your changes on a separate branch, and submit a pull request for review.
 
+<img width="1268" height="951" alt="Screenshot 2025-12-20 044605" src="https://github.com/user-attachments/assets/388f68ea-4138-4684-94ce-d02bd7babd38" />
+<img width="1220" height="771" alt="Screenshot 2025-12-20 044529" src="https://github.com/user-attachments/assets/14184429-c9fe-438e-bdfd-57c4c2570a57" />
+<img width="1300" height="925" alt="Screenshot 2025-12-20 044443" src="https://github.com/user-attachments/assets/d470d27c-e2fa-473b-a51d-f31e42bb7ebd" />
+<img width="1222" height="563" alt="Screenshot 2025-12-20 044352" src="https://github.com/user-attachments/assets/a41e6a4d-ebec-4e64-9bc1-5f96a2909a8d" />
+<img width="1203" height="414" alt="Screenshot 2025-12-20 044255" src="https://github.com/user-attachments/assets/2bd85fcb-8279-4062-823f-16df7a704e33" />
+<img width="1211" height="517" alt="Screenshot 2025-12-20 044200" src="https://github.com/user-attachments/assets/3703ad1e-b0c7-4f51-a9e4-0c2cc7a79193" />
+<img width="1283" height="654" alt="Screenshot 2025-12-20 044121" src="https://github.com/user-attachments/assets/201370ba-0e55-4d6f-a5c7-b693a9b27c2f" />
+<img width="1242" height="873" alt="Screenshot 2025-12-20 044005" src="https://github.com/user-attachments/assets/1dbb4c0c-4a04-436b-8a48-446c7d216767" />
+<img width="1222" height="767" alt="Screenshot 2025-12-20 043933" src="https://github.com/user-attachments/assets/598124e1-fa36-486f-862b-2ed6e7c0e9f0" />
+<img width="1270" height="411" alt="Screenshot 2025-12-20 043858" src="https://github.com/user-attachments/assets/6a492473-b4fe-4790-9b3f-e60cd8c403bc" />
+<img width="1280" height="769" alt="Screenshot 2025-12-20 043832" src="https://github.com/user-attachments/assets/84392d31-f7d6-4688-9aa4-e8ed59ac68e0" />
+<img width="1267" height="880" alt="Screenshot 2025-12-20 043753" src="https://github.com/user-attachments/assets/74162cab-0702-456e-bca6-53650752c49a" />
+<img width="41" height="159" alt="Screenshot 2025-12-20 043746" src="https://github.com/user-attachments/assets/eabed3ec-677e-4198-975b-acb6f01aebd8" />
+<img width="1222" height="767" alt="Screenshot 2025-12-20 0439dd33" src="https://github.com/user-attachments/assets/346b22f8-6dae-4a99-8da8-c33a19ef9baa" />
+<img width="1300" height="925" alt="Screenshot 2025-12-20 044cc443" src="https://github.com/user-attachments/assets/acc64817-e054-4fc1-b28d-7e84815a3ac6" />
+<img width="1203" height="414" alt="Screenshot 2025-12-20 04s4255" src="https://github.com/user-attachments/assets/ddbc9b32-9d3d-4d0b-b04d-998a1c35e5cb" />
+<img width="1280" height="769" alt="Screenshot 2025-12-20 04s3832" src="https://github.com/user-attachments/assets/8622d737-5845-4511-889e-6ece4065f4d9" />
+<img width="1222" height="563" alt="Screenshot 2025-12-20 0aa44352" src="https://github.com/user-attachments/assets/b277138b-b575-4144-84de-e872c2f94e45" />
+<img width="1283" height="654" alt="Screenshot 2025-1ss2-20 044121" src="https://github.com/user-attachments/assets/51af4861-42f5-4e10-b8b0-b60769fc1bfe" />
+<img width="1270" height="411" alt="Screenshot 2025-1s2-20 043858" src="https://github.com/user-attachments/assets/9df01721-8e64-4acb-8d61-73a7681b6e2d" />
+<img width="1211" height="517" alt="Screenshot 2sss025-12-20 044200" src="https://github.com/user-attachments/assets/a8ce41ab-6df0-4f49-86a2-667c7125dc10" />
+<img width="1268" height="951" alt="ddd" src="https://github.com/user-attachments/assets/e431ce09-48a7-476b-925c-f506792fa67e" />
+<img width="1220" height="771" alt="Screenshot 2025-12-20ss 044529" src="https://github.com/user-attachments/assets/9823f742-04b8-40b6-a953-621792e9cfd6" />
+
+
 ---
 
 ## 📄 License
