@@ -1,5 +1,6 @@
 import frappe
 from frappe import _
+from hospitality_core.hospitality_core.api.reservation import check_bulk_availability
 
 @frappe.whitelist()
 def create_master_folio(group_booking_name):
@@ -71,15 +72,21 @@ def mass_check_in(group_booking):
         return {"message": _("No reserved bookings found for this group.")}
         
     count = 0
+    errors = []
     for r in reservations:
         try:
             doc = frappe.get_doc("Hotel Reservation", r.name)
             doc.process_check_in()
             count += 1
         except Exception as e:
-            frappe.log_error(message=str(e), title=f"Group Checkin Error: {r.name}")
+            err_msg = str(e) or _("Unknown error")
+            errors.append(f"<b>{r.name}</b>: {err_msg}")
             
-    return {"message": _("Successfully Checked In {0} guests.").format(count)}
+    res_msg = _("Successfully Checked In {0} guests.").format(count)
+    if errors:
+        res_msg += "<br><br>" + _("<b>Failures:</b>") + "<br><ul><li>" + "</li><li>".join(errors) + "</li></ul>"
+        
+    return {"message": res_msg, "success_count": count, "error_count": len(errors)}
 
 @frappe.whitelist()
 def mass_check_out(group_booking):
@@ -95,12 +102,61 @@ def mass_check_out(group_booking):
         return {"message": _("No in-house guests found for this group to check out.")}
         
     count = 0
+    errors = []
     for r in reservations:
         try:
             doc = frappe.get_doc("Hotel Reservation", r.name)
             doc.process_check_out()
             count += 1
         except Exception as e:
-            frappe.log_error(message=str(e), title=f"Group Checkout Error: {r.name}")
+            err_msg = str(e) or _("Unknown error")
+            errors.append(f"<b>{r.name}</b>: {err_msg}")
             
-    return {"message": _("Successfully Checked Out {0} guests.").format(count)}
+    res_msg = _("Successfully Checked Out {0} guests.").format(count)
+    if errors:
+        res_msg += "<br><br>" + _("<b>Failures:</b>") + "<br><ul><li>" + "</li><li>".join(errors) + "</li></ul>"
+            
+    return {"message": res_msg, "success_count": count, "error_count": len(errors)}
+    
+@frappe.whitelist()
+def bulk_reserve_rooms(group_booking, guest, rooms, arrival_date, departure_date):
+    """
+    Creates multiple Hotel Reservation records for a guest under a group booking.
+    rooms: JSON list of room names
+    """
+    import json
+    room_list = json.loads(rooms)
+    
+    group_doc = frappe.get_doc("Hotel Group Booking", group_booking)
+    
+    # Comprehensive Availability Verification
+    check_bulk_availability(room_list, arrival_date, departure_date)
+
+    created_reservations = []
+    errors = []
+    
+    for room in room_list:
+        try:
+            # Create Hotel Reservation
+            res = frappe.new_doc("Hotel Reservation")
+            res.guest = guest
+            res.room = room
+            # Get room type
+            res.room_type = frappe.db.get_value("Hotel Room", room, "room_type")
+            res.arrival_date = arrival_date
+            res.departure_date = departure_date
+            res.group_booking = group_booking
+            res.is_group_guest = 1
+            res.company = group_doc.master_payer
+            
+            # Validation will happen on insert (availability check etc.)
+            res.insert()
+            created_reservations.append(res.name)
+        except Exception as e:
+            err_msg = str(e) or _("Unknown error")
+            errors.append(f"<b>Room {room}</b>: {err_msg}")
+        
+    return {
+        "created": created_reservations,
+        "errors": errors
+    }

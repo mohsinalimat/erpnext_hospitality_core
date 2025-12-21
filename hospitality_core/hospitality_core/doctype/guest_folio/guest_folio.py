@@ -40,11 +40,17 @@ class GuestFolio(Document):
             # If it is NOT a company guest, strict balance enforcement applies.
             # If it IS a company guest, we assume the balance is liable to the company and allow closure.
             if not is_company_guest:
-                # For Floating Point comparison
-                if self.outstanding_balance > 0.01 or self.outstanding_balance < -0.01:
+                # Only prevent closure if there is a DEBIT balance (guest owes money)
+                # CREDIT balances (guest is owed money) are recorded in the Guest Balance Ledger.
+                if self.outstanding_balance > 0.01:
                     frappe.throw(
                         _("Cannot Close Folio. Outstanding Balance is {0}. Please settle payments or post allowances.").format(self.outstanding_balance)
                     )
+
+    def after_save(self):
+        if self.status == "Closed":
+            from hospitality_core.hospitality_core.api.folio import record_guest_balance
+            record_guest_balance(self)
 
     def on_trash(self):
         if self.transactions:

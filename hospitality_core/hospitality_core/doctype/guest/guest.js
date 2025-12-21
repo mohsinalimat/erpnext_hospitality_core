@@ -1,12 +1,19 @@
 frappe.ui.form.on('Guest', {
-    refresh: function(frm) {
+    refresh: function (frm) {
         if (!frm.is_new()) {
             render_guest_dashboard(frm);
-            
+
             // Add button to jump to history
-            frm.add_custom_button(__('View Past Stays'), function() {
-                frappe.set_route('List', 'Hotel Reservation', {guest: frm.doc.name});
+            frm.add_custom_button(__('View Past Stays'), function () {
+                frappe.set_route('List', 'Hotel Reservation', { guest: frm.doc.name });
             }, 'History');
+
+            // Add button to create new reservation
+            frm.add_custom_button(__('Make Reservation'), function () {
+                frappe.new_doc('Hotel Reservation', {
+                    guest: frm.doc.name
+                });
+            });
         }
     }
 });
@@ -16,10 +23,10 @@ function render_guest_dashboard(frm) {
     frappe.call({
         method: 'hospitality_core.hospitality_core.doctype.guest.guest.get_guest_stats',
         args: { guest: frm.doc.name },
-        callback: function(r) {
+        callback: function (r) {
             if (r.message) {
                 let stats = r.message;
-                
+
                 // 2. Inject HTML
                 let html = `
                 <div class="row" style="margin-bottom: 20px;">
@@ -49,9 +56,9 @@ function render_guest_dashboard(frm) {
                     </div>
                 </div>
                 `;
-                
+
                 // Inject before the first section
-                if(frm.fields_dict['full_name']) {
+                if (frm.fields_dict['full_name']) {
                     $(frm.fields_dict['full_name'].wrapper).closest('.form-section').before(html);
                 }
             }

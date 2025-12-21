@@ -260,3 +260,109 @@ def move_transactions(transaction_names, target_folio):
     sync_folio_balance(target_doc)
     
     return True
+@frappe.whitelist()
+def debug_folio_totals(folio_name):
+    """
+    Diagnostic tool to see raw SQL vs field values.
+    """
+    totals = frappe.db.sql("""
+        SELECT 
+            SUM(CASE WHEN amount > 0 THEN amount ELSE 0 END) as charges,
+            SUM(CASE WHEN amount < 0 THEN ABS(amount) ELSE 0 END) as payments
+        FROM `tabFolio Transaction`
+        WHERE parent = %s AND is_void = 0
+    """, (folio_name,), as_dict=True)[0]
+    
+    doc = frappe.get_doc("Guest Folio", folio_name)
+    
+    txns = frappe.db.get_all("Folio Transaction", 
+        filters={"parent": folio_name, "is_void": 0},
+        fields=["name", "item", "description", "amount"]
+    )
+    
+    return {
+        "sql_totals": totals,
+        "doc_fields": {
+            "total_charges": doc.total_charges,
+            "total_payments": doc.total_payments,
+            "outstanding_balance": doc.outstanding_balance
+        },
+        "transactions": txns
+    }
+
+def record_guest_balance(folio_doc):
+    """
+    If a folio is closed with a credit balance (outstanding_balance < 0),
+    record it in the Guest Balance Ledger.
+    """
+    if flt(folio_doc.outstanding_balance) < -0.01:
+        credit_amount = abs(flt(folio_doc.outstanding_balance))
+        
+        # Check if already recorded to avoid duplicates
+        if not frappe.db.exists("Guest Balance Ledger", {"folio": folio_doc.name}):
+            ledger_entry = frappe.new_doc("Guest Balance Ledger")
+            ledger_entry.guest = folio_doc.guest
+            ledger_entry.folio = folio_doc.name
+            ledger_entry.amount = credit_amount
+            ledger_entry.status = "Available"
+            ledger_entry.insert(ignore_permissions=True)
+            
+            frappe.msgprint(_("Recorded credit balance of {0} for Guest {1} in Balance Ledger.").format(
+                frappe.format(credit_amount, "Currency"), folio_doc.guest
+            ))
+
+def transfer_existing_balances(folio_doc):
+    """
+    Checks for available credit balances for the guest and transfers them to the new folio.
+    """
+    if not folio_doc.guest:
+        return
+
+    available_balances = frappe.get_all("Guest Balance Ledger", 
+        filters={"guest": folio_doc.guest, "status": "Available"},
+        fields=["name", "amount", "folio"]
+    )
+
+    if not available_balances:
+        return
+
+    total_transferred = 0.0
+    for balance in available_balances:
+        # Create a payment transaction in the new folio
+        txn = frappe.get_doc({
+            "doctype": "Folio Transaction",
+            "parent": folio_doc.name,
+            "parenttype": "Guest Folio",
+            "parentfield": "transactions",
+            "posting_date": frappe.utils.nowdate(),
+            "item": "BALANCE-TRANSFER",
+            "description": f"Balance Transfer from Folio {balance.folio}",
+            "qty": 1,
+            "amount": -1 * flt(balance.amount), # Payment (Credit)
+            "is_void": 0
+        })
+        
+        # Ensure BALANCE-TRANSFER item exists
+        if not frappe.db.exists("Item", "BALANCE-TRANSFER"):
+            item = frappe.new_doc("Item")
+            item.item_code = "BALANCE-TRANSFER"
+            item.item_name = "Guest Balance Transfer"
+            item.item_group = "Services"
+            item.is_stock_item = 0
+            item.insert(ignore_permissions=True)
+            
+        txn.insert(ignore_permissions=True)
+        
+        # Update Ledger Status
+        frappe.db.set_value("Guest Balance Ledger", balance.name, {
+            "status": "Transferred",
+            "transferred_to_folio": folio_doc.name
+        })
+        
+        total_transferred += flt(balance.amount)
+
+    if total_transferred > 0:
+        sync_folio_balance(folio_doc)
+        frappe.msgprint(_("Transferred {0} from previous credit balances to this folio.").format(
+            frappe.format(total_transferred, "Currency")
+        ))

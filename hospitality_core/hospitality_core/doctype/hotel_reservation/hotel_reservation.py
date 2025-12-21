@@ -10,8 +10,8 @@ class HotelReservation(Document):
     def validate(self):
         self.validate_dates()
         
-        # Only validate availability if status is Reserved or being created (not when cancelling or checking out)
-        if self.status == "Reserved" and not self.is_new():
+        # Only validate availability if status is Reserved or Checked In
+        if self.status in ["Reserved", "Checked In"]:
             self.validate_room_availability()
         
         # Requirement: "billing to Company should be set... Folio is opened to the Company"
@@ -130,6 +130,20 @@ class HotelReservation(Document):
         if getdate(self.departure_date) != getdate(nowdate()):
             frappe.throw(_("Cannot Check Out. Departure date ({0}) must be today ({1}).").format(self.departure_date, nowdate()))
 
+        # Requirement: "When a reservation is part of a group booking, that reservation cannot be checked out until the master folio is cleared."
+        if self.is_group_guest and self.group_booking:
+            master_folio = frappe.db.get_value("Hotel Group Booking", self.group_booking, "master_folio")
+            if master_folio:
+                # Sync balance to get latest totals
+                master_folio_doc = frappe.get_doc("Guest Folio", master_folio)
+                from hospitality_core.hospitality_core.api.folio import sync_folio_balance
+                sync_folio_balance(master_folio_doc)
+                
+                # Re-fetch balance
+                master_balance = frappe.db.get_value("Guest Folio", master_folio, "outstanding_balance")
+                if master_balance > 0.01:
+                    frappe.throw(_("Cannot Check Out. The Group Master Folio ({0}) has an outstanding balance of {1}. All group charges must be settled first.").format(master_folio, master_balance))
+
         # 1. Handle Folio
         if self.folio:
             folio_doc = frappe.get_doc("Guest Folio", self.folio)
@@ -230,7 +244,7 @@ class HotelReservation(Document):
                             "parentfield": "transactions",
                             "posting_date": nowdate(),
                             "item": transfer_item,
-                            "description": f"Charge from Room {self.room} ({self.guest_name})",
+                            "description": f"Charge from Room {self.room} ({self.guest})",
                             "qty": 1,
                             "amount": flt(current_balance), # Debit
                             "is_void": 0
@@ -250,19 +264,24 @@ class HotelReservation(Document):
             # Updated Requirement: Company Guests can check out with balance.
             
             if not self.is_company_guest:
-                if balance > 0.01 or balance < -0.01:
+                if balance > 0.01:
                     frappe.throw(_("Cannot Check Out. Outstanding balance of {0} remains on Folio {1}. Please settle payment.").format(balance, self.folio))
             else:
                 if balance > 0.01:
                     frappe.msgprint(_("Company Guest Checkout: Outstanding balance of {0}. Liability remains on Company Master Folio.").format(balance))
             
             # Close Folio
-            folio_doc.db_set("status", "Closed")
-            folio_doc.db_set("close_date", nowdate())
+            folio_doc.status = "Closed"
+            folio_doc.close_date = nowdate()
             
             # Requirement: "folio ... should be submitted and immutable"
             # Updated: Document is no longer submittable.
             folio_doc.save()
+            
+            # Record guest balance if there's a credit balance
+            # (after_save hook handles this, but we call it explicitly to ensure it runs)
+            from hospitality_core.hospitality_core.api.folio import record_guest_balance
+            record_guest_balance(folio_doc)
 
         # 2. Update Reservation
         self.db_set("status", "Checked Out")

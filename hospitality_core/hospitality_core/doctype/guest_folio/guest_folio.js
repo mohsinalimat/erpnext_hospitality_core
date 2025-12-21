@@ -215,24 +215,56 @@ function void_transaction_dialog(frm) {
 }
 
 function make_payment_entry(frm) {
-    frappe.db.get_value('Guest', frm.doc.guest, 'customer').then(r => {
-        let customer = frm.doc.company || r.message.customer;
+    // Fetch both customer and full_name from Guest record
+    frappe.db.get_value('Guest', frm.doc.guest, ['customer', 'full_name']).then(r => {
+        let existing_customer = frm.doc.company || r.message.customer;
+        let guest_name = r.message.full_name || frm.doc.guest;
 
-        if (!customer) {
-            frappe.msgprint('Please link the Guest to a Customer record first to record payments via ERPNext.');
-            return;
+        // Function to create payment entry with customer
+        const create_payment = (customer) => {
+            frappe.model.with_doctype('Payment Entry', function () {
+                var pe = frappe.model.get_new_doc('Payment Entry');
+                pe.payment_type = 'Receive';
+                pe.party_type = 'Customer';
+                pe.party = customer;
+                pe.party_name = customer;
+                pe.paid_amount = frm.doc.outstanding_balance;
+                pe.reference_no = frm.doc.name;
+                pe.reference_date = frappe.datetime.now_date();
+                pe.remarks = `Payment from Guest: ${guest_name} (Folio: ${frm.doc.name})`;
+                frappe.set_route('Form', 'Payment Entry', pe.name);
+            });
+        };
+
+        // If no customer linked, auto-create one with guest's name
+        if (!existing_customer) {
+            frappe.call({
+                method: 'frappe.client.insert',
+                args: {
+                    doc: {
+                        doctype: 'Customer',
+                        customer_name: guest_name,
+                        customer_type: 'Individual'
+                    }
+                },
+                callback: function (response) {
+                    if (response.message) {
+                        // Link the new customer to the guest
+                        frappe.call({
+                            method: 'frappe.client.set_value',
+                            args: {
+                                doctype: 'Guest',
+                                name: frm.doc.guest,
+                                fieldname: 'customer',
+                                value: response.message.name
+                            }
+                        });
+                        create_payment(response.message.name);
+                    }
+                }
+            });
+        } else {
+            create_payment(existing_customer);
         }
-
-        frappe.model.with_doctype('Payment Entry', function () {
-            var pe = frappe.model.get_new_doc('Payment Entry');
-            pe.payment_type = 'Receive';
-            pe.party_type = 'Customer';
-            pe.party = customer;
-            pe.paid_amount = frm.doc.outstanding_balance;
-            pe.received_amount = frm.doc.outstanding_balance;
-            pe.reference_no = frm.doc.name;
-            pe.reference_date = frappe.datetime.now_date();
-            frappe.set_route('Form', 'Payment Entry', pe.name);
-        });
     });
 }

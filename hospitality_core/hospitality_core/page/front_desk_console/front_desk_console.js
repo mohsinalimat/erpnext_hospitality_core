@@ -73,7 +73,7 @@ frappe.pages['front-desk-console'].on_page_load = function (wrapper) {
                 <div class="col-md-2 col-xs-4"><a class="fd-toolbar-btn" onclick="frappe.set_route('availability-tool')">Availability</a></div>
                 <div class="col-md-2 col-xs-4"><a class="fd-toolbar-btn" onclick="frappe.set_route('housekeeping-view')">Housekeeping</a></div>
                 <div class="col-md-2 col-xs-4"><a class="fd-toolbar-btn" onclick="frappe.set_route('List', 'Hotel Reservation')">Reservations</a></div>
-                <div class="col-md-2 col-xs-4"><a class="fd-toolbar-btn" onclick="frappe.set_route('List', 'Guest')">Guest List</a></div>
+                <div class="col-md-2 col-xs-4"><a class="fd-toolbar-btn" onclick="frappe.set_route('query-report', 'House List')">House List</a></div>
                 <div class="col-md-2 col-xs-4"><a class="fd-toolbar-btn" onclick="frappe.set_route('List', 'Hotel Maintenance Request')">Maintenance</a></div>
             </div>
 
